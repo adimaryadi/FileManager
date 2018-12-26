@@ -3,14 +3,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { File } from '@ionic-native/file';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { EksekusiPage } from '../pages/eksekusi/eksekusi';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    EksekusiPage
   ],
   imports: [
     BrowserModule,
@@ -19,12 +22,14 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    EksekusiPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File
   ]
 })
 export class AppModule {}

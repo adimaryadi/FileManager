@@ -1,3 +1,31 @@
 page-home {
-
+	.pilihan {
+	    position: relative;
+	    left: 295px;
+	    font-size: 2.7em;
+	    font-size: 1.7em;
+	    z-index: 222;
+	    bottom: 33px;	
+	}
+	.option {
+	    position: relative;
+	    top: 122px;
+	    p {
+		    position: absolute;
+		    margin-left: 76px;
+		    font-size: 2.0em;
+		    top: 27px;
+		    font-family: initial;	    	
+	    }
+	    .item-button {
+		    width: 62px;
+		    height: 62px;
+		    font-size: 1.6em;
+		    border-radius: 34px;	    	
+	    }	
+	}
+	.idpilih {
+	    position: relative;
+	    top: 53px;		
+	}
 }

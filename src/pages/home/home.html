@@ -1,14 +1,33 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Daftar {{ nama_file }}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
+<!-- this menu slide -->
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
+<!-- end menu slide -->
+
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+	<ion-list *ngFor="let list of folder">
+	  <button ion-item  (click)="NextFolder(list.path, list.nama_file)">
+	    <ion-icon name="md-folder" item-start></ion-icon>{{ list.nama_file }}
+	  </button> 
+	  <div class="pilihan" (click)="pilihan(list.path,list.nama_file)">
+	  	<div class="setting">
+	  		<ion-icon name="settings"></ion-icon>
+	  	</div>
+	  </div>	  
+	</ion-list>
+	<!-- <ion-list>		
+	  <button ion-item >
+	    <ion-icon name="md-folder" item-start></ion-icon>File
+	  </button>	
+	  <div class="pilihan" (click)="pilihan()">
+	  	<ion-icon name="settings" ></ion-icon>
+	  </div>	  	
+	</ion-list> -->
 </ion-content>
