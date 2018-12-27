@@ -162,8 +162,45 @@ export class HomePage {
   	});
   	newfolderAlert.present();
   }
-
+  
+  
   createFolder(nama_folder) {
-  	console.log(nama_folder);
+
+  	if (nama_folder.length == 0) {
+  		let pesan = this.alert.create({
+  			title: 'Pesan !',
+  			subTitle: 'Nama Folder Tidak boleh kosong',
+  			buttons: ['Dimengerti']
+  		});
+  		pesan.present();
+  	} else {
+  		let wherepath 		= 	 this.dirPath + this.path;
+  		this.file.checkDir(wherepath, nama_folder)
+  			.then((cekdir) => {
+  				if (cekdir == true) {
+  					let pesan = this.alert.create({
+  						title: 'Pesan !',
+  						subTitle: 'Nama folder ada',
+  						buttons: ['Dimengerti']
+  					});
+  					pesan.present();
+  				} else {
+			  		this.file.createDir(wherepath, nama_folder, false)
+			  			.then((dir) => {
+			  				if (dir.isDirectory == true) {
+			  					
+			  				}
+			  			})
+			  			.catch((pusing) => {
+			  				console.log(pusing);
+			  			})  					
+  				}
+  			})
+  			.catch((pusing) => {
+  				console.log(pusing);
+  			})
+
+  			console.log(wherepath);
+  	}
   }
 }
