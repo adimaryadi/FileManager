@@ -62,7 +62,7 @@ export class HomePage {
   					this.file_entry.push(this.list_file);
   				}
   			}
-  			console.log(this.file_entry);
+  			// console.log(this.file_list);
   		})
   		.catch((pusing) => {
   			console.log(pusing);
@@ -125,7 +125,34 @@ export class HomePage {
   			nama_file: nama_file
   		});  		
   	} else if (pilihan == 'hapus') {
-  		console.log('hapus');
+  		let hapus		=   this.dirPath + this.path;
+  		console.log(hapus);
+  		this.file.checkDir(hapus, nama_file)
+  			.then((cekdir) => {
+  				if (cekdir == true) {
+  					let pesan  =  this.alert.create({
+  						title: 'Pesan !',
+  						subTitle: 'Folder ' + nama_file + ' akan dihapus',
+  						buttons: [
+  							{
+  								text: 'batal',
+  								role: 'cancel'
+  							},
+  							{
+  								text: 'Hapus',
+  								handler: () => {
+  									this.deleteDir(hapus, nama_file);
+  								}
+  							}
+  						]
+  					});
+  					pesan.present();
+  				}
+  			})
+  			.catch((pusing) => {
+  				console.log(pusing);
+  				this.navCtrl.pop();
+  			})
   	} else {
   		let alert  =  this.alert.create({
   			title: 'pesan ?',
@@ -163,6 +190,25 @@ export class HomePage {
   	newfolderAlert.present();
   }
   
+  deleteDir(hapus,nama) {
+  	this.file.removeRecursively(hapus, nama)
+  		.then((hapus) => {
+  			if (hapus.success == true) {
+  				this.navCtrl.pop();
+  				let pesantoast 	    =    this.toastControl.create({
+  					message: 'Folder ' + nama + ' Sudah dihapus',
+  					duration: 3000,
+  					position: 'bottom'
+  				});
+  				pesantoast.present();
+  			} else {
+  				console.log(hapus);
+  			}
+  		})
+  		.catch((pusing) => {
+  			console.log(pusing);
+  		})  	
+  }
   
   createFolder(nama_folder) {
 
