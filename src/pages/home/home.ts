@@ -25,10 +25,15 @@ export class HomePage {
   folder:any 				= 		[];
   path:string 			 	= 	    this.folderPath;
   dirPath:string 			= 		'file:///';
+  list_file:any 		 	= 		[];
+  file_entry:any 		    = 		[];
+  buttonNewFolder:boolean 	= 		false;
 
   ListFile() {
   	if (this.path == undefined) {
-  		this.path 			= 	 	'';
+  		this.path 				= 	 	'';
+  	} else {
+  		this.buttonNewFolder	= 	 	true;
   	}
   	this.file.listDir(this.dirPath , this.path)
   		.then((file) => {
@@ -45,19 +50,29 @@ export class HomePage {
   						storage:     fullpath
   					}
   					this.folder.push(this.list);
+  				} else if(this.file_list[i].isFile == true) {
+  					let name_file 	 	= 	 this.file_list[i].name;
+  					let path    		= 	 this.file_list[i].fullPath;
+  					let fullPath 		= 	 this.file_list[i].nativeURL;
+  					this.list_file 		= 	 {
+  						nama_file:      name_file,
+  						path_file: 	 	path,
+  						fullpath: 	    fullPath
+  					};
+  					this.file_entry.push(this.list_file);
   				}
   			}
-  			console.log(this.path);
+  			console.log(this.file_entry);
   		})
   		.catch((pusing) => {
   			console.log(pusing);
   		})
   }
 
+ 
   NextFolder(nama_folder_,nama_file) {
   	let stringPath 		= 	nama_folder_;
   	let substring 		= 	stringPath.substr(1);
-  	console.log(substring);
   	this.navCtrl.push(HomePage, {
   		folderPath:    substring,
   		nama_file:	   nama_file
@@ -119,6 +134,36 @@ export class HomePage {
   		});
   		alert.present();
   	}
+  }
 
+  NewFolder() {
+
+  	let newfolderAlert 	 =    this.alert.create({
+  		title: 'Membuat folder baru di ' + this.nama_file,
+  		inputs: [
+  			{
+  				name: 'folderbaru',
+  				placeholder: 'Folder Baru'
+  			}
+  		],
+  		buttons: [
+  			{
+  				text: 'Batal',
+  				role: 'cancel'
+  			},
+  			{
+  				text: 'Buat',
+  				handler: data => {
+  					let folder_baru    =   data.folderbaru;
+  					this.createFolder(folder_baru);
+  				}
+  			}
+  		]
+  	});
+  	newfolderAlert.present();
+  }
+
+  createFolder(nama_folder) {
+  	console.log(nama_folder);
   }
 }

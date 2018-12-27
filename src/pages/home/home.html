@@ -3,6 +3,9 @@
     <ion-title>
       Daftar {{ nama_file }}
     </ion-title>
+	<div class="create_folder" *ngIf="buttonNewFolder">
+		<button ion-button><ion-icon name="add" (click)="NewFolder()"></ion-icon></button>
+	</div>    
   </ion-navbar>
 </ion-header>
 
@@ -12,6 +15,7 @@
 <!-- end menu slide -->
 
 <ion-content padding>
+	<!-- isFolder -->
 	<ion-list *ngFor="let list of folder">
 	  <button ion-item  (click)="NextFolder(list.path, list.nama_file)">
 	    <ion-icon name="md-folder" item-start></ion-icon>{{ list.nama_file }}
@@ -22,6 +26,17 @@
 	  	</div>
 	  </div>	  
 	</ion-list>
+	<!-- End Folder -->
+	<!-- isFile -->
+	<ion-list *ngFor="let file of file_entry">
+		<button ion-item >
+			<ion-icon  name="document" md="md-document" item-start></ion-icon> {{ file.nama_file }}
+		</button>
+		<div class="pilihan">
+			<ion-icon name="settings"></ion-icon>
+		</div>
+	</ion-list>
+	<!-- End File -->
 	<!-- <ion-list>		
 	  <button ion-item >
 	    <ion-icon name="md-folder" item-start></ion-icon>File

@@ -28,4 +28,14 @@ page-home {
 	    position: relative;
 	    top: 53px;		
 	}
+	.create_folder {
+	    position: absolute;
+	    bottom: 3px;
+	    right: 15px;	
+	    .button-md {
+		    width: 63px;
+		    height: 43px;
+		    font-size: 1.8em;	    	
+	    }	
+	}
 }
