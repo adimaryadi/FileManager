@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController , NavParams , ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController , NavParams , ActionSheetController, AlertController , ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { EksekusiPage } from '../eksekusi/eksekusi';
 
@@ -10,7 +10,7 @@ import { EksekusiPage } from '../eksekusi/eksekusi';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private file: File , public navParams: NavParams , public actionsheet: ActionSheetController, private alert: AlertController) {
+  constructor(private toastControl: ToastController , public navCtrl: NavController, private file: File , public navParams: NavParams , public actionsheet: ActionSheetController, private alert: AlertController) {
  
   }
 
@@ -184,22 +184,32 @@ export class HomePage {
   						buttons: ['Dimengerti']
   					});
   					pesan.present();
-  				} else {
+  				}
+  			})
+  			.catch((betul) => {
 			  		this.file.createDir(wherepath, nama_folder, false)
 			  			.then((dir) => {
+			  				this.navCtrl.pop();
 			  				if (dir.isDirectory == true) {
-			  					
+			  					let substring 	= 	dir.fullPath;
+			  					let path 		= 	substring.substr(1);
+			  					let nama 	 	= 	dir.name;
+			  					this.navCtrl.push(HomePage, {
+			  						folderPath: path,
+			  						nama_file:  nama
+			  					});
+			  					let pesantoast 	=   this.toastControl.create({
+			  						message: 'Folder ' + nama + ' Berhasil dibuat',
+			  						duration: 3000,
+			  						position: 'top'
+			  					});
+			  					pesantoast.present();
 			  				}
 			  			})
 			  			.catch((pusing) => {
 			  				console.log(pusing);
-			  			})  					
-  				}
+			  			}) 
   			})
-  			.catch((pusing) => {
-  				console.log(pusing);
-  			})
-
   			console.log(wherepath);
   	}
   }
