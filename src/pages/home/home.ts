@@ -253,7 +253,13 @@ export class HomePage {
 			  				}
 			  			})
 			  			.catch((pusing) => {
-			  				console.log(pusing);
+			  				let pesan  =  this.alert.create({
+			  					title: 'Pesan !',
+			  					subTitle: 'Gagal -_- !',
+			  					buttons: ['OK']
+			  				});
+
+			  				pesan.present();
 			  			}) 
   			})
   			console.log(wherepath);

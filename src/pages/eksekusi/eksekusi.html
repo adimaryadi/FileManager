@@ -7,12 +7,47 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Dari {{ file }}  {{ eksekusi }} ke</ion-title>
+    <ion-title>Dari {{ nama_file }}  {{ pilihan }} ke {{ to }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div class="select_storage" *ngIf="selected">
+     <ion-card>
 
+       <ion-card-header>
+           Pilih Penyimpanan
+       </ion-card-header>
+
+       <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6>
+              <div class="microsd">
+                <button ion-button color="light" (click)="Penyimpanan(pilih = 'sdcard')">
+                  <ion-img src="./../../assets/imgs/microsd.png"></ion-img>
+                </button>
+              </div>
+            </ion-col>
+            <ion-col col-6>
+              <div class="microsd">
+                <button ion-button color="light" (click)="Penyimpanan(pilih = 'internal')">
+                  <ion-img src="./../../assets/imgs/phone.png"></ion-img>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+       </ion-card-content>
+     </ion-card>
+  </div>
+  <div *ngIf="listfolder">
+  	<ion-list *ngFor="let list of folder">
+  		<button ion-item (click)="EksekusiPerintah()">
+  			<ion-icon name="md-folder" item-start></ion-icon> {{ list.nama }}
+  		</button>
+  	</ion-list>
+  </div>
 </ion-content>
