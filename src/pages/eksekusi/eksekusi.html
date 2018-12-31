@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Dari {{ nama_file }}  {{ pilihan }} ke {{ to }}</ion-title>
+    <ion-title>Dari {{ path }}  {{ pilihan }} ke {{ to }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
 
 <ion-content padding>
   <div class="select_storage" *ngIf="selected">
-     <ion-card>
+<!--      <ion-card>
 
        <ion-card-header>
            Pilih Penyimpanan
@@ -41,13 +41,31 @@
           </ion-row>
         </ion-grid>
        </ion-card-content>
-     </ion-card>
+     </ion-card> -->
   </div>
   <div *ngIf="listfolder">
   	<ion-list *ngFor="let list of folder">
-  		<button ion-item (click)="EksekusiPerintah()">
+  		<button ion-item (click)="EksekusiPerintah(list.path,list.nama,list.fullpath)">
   			<ion-icon name="md-folder" item-start></ion-icon> {{ list.nama }}
   		</button>
+      <div class="pilihan" *ngIf="button_pilih">
+        <button ion-button (click)="Pilih_path(list.nama)">
+          pilih
+        </button>
+      </div>
   	</ion-list>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      {{ pilihan }} ke {{ to }}
+    </ion-title>
+    <div class="position">
+      <button ion-button (click)="PathEksekusi()">
+        <ion-icon ios="ios-copy" md="md-copy"></ion-icon>
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

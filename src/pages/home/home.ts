@@ -68,11 +68,11 @@ export class HomePage {
   			console.log(pusing);
   		})
   }
-
  
   NextFolder(nama_folder_,nama_file) {
   	let stringPath 		= 	nama_folder_;
   	let substring 		= 	stringPath.substr(1);
+
   	this.navCtrl.push(HomePage, {
   		folderPath:    substring,
   		nama_file:	   nama_file
@@ -112,17 +112,20 @@ export class HomePage {
   }
 
   eksekusi(pilihan, path, nama_file) {
+
   	if (pilihan == 'salin') {
   		this.navCtrl.push(EksekusiPage, {
   			pilihan: pilihan,
   			path: path,
-  			nama_file: nama_file
+  			nama_dari: nama_file,
+  			path_next: this.folderPath
   		});
   	} else if (pilihan == 'pindah') {
   		this.navCtrl.push(EksekusiPage, {
   			pilihan: pilihan,
   			path: path,
-  			nama_file: nama_file
+  			nama_dari: nama_file,
+  			path_next: this.folderPath
   		});  		
   	} else if (pilihan == 'hapus') {
   		let hapus		=   this.dirPath + this.path;

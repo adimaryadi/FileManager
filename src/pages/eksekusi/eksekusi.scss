@@ -17,6 +17,18 @@ page-eksekusi {
 	    font-size: 2.7em;
 	    font-size: 1.7em;
 	    z-index: 222;
-	    bottom: 33px;	
+	    bottom: 48px;	
+	}
+	.position {
+	    position: absolute;
+	    float: right;
+	    right: 23px;
+	    top: 0;
+	    .button-md {
+		    width: 46px;
+		    height: 45px;
+		    font-size: 1.3em;
+		    border-radius: 39px;	    	
+	    }		
 	}	
 }

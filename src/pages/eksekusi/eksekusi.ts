@@ -26,6 +26,8 @@ export class EksekusiPage {
   to:string 			= 	 this.navParams.get('to');
   path 					=    this.navParams.get('path');
   nama_file 			=    this.navParams.get('nama_file');
+  nama_dari 			= 	 this.navParams.get('nama_dari');
+  path_next 		 	= 	 this.navParams.get('path_next');
   eksekusi:string 		=	 '';
   file:string 			= 	 this.navParams.get('file');
   fullPath 		 		= 	 'file:///';
@@ -34,16 +36,25 @@ export class EksekusiPage {
   folder:any 			= 	 [];
   selected:boolean 		=    true;
   listfolder:boolean 	= 	 false;
+  button_pilih:boolean  =    false;
+
 
   storagelist() {
   	if (this.file == undefined) {
   		this.file 		= 		'';
   		this.selected 	= 		true;
-  		this.listfolder =       false;
+  		this.listfolder =       true;
   	} else {
   		this.selected 	= 		false;
   		this.listfolder =       true;
   	}
+
+  	if (this.file == '') {
+  		this.button_pilih     =    false;
+  	} else {
+  		this.button_pilih     =    true;
+  	}
+
   	this.filestorage.listDir(this.fullPath, this.file)
   		.then((dir) => {
   			this.datafolder    =   dir;
@@ -68,41 +79,66 @@ export class EksekusiPage {
   }
 
   Penyimpanan(pilih) {
-  	if (pilih == 'sdcard') {
-  		let path 			= 	'storage/extSdCard/';
-  		let nama_file		= 	this.nama_file;
-  		let pilihan 		=   pilih;
-  		let piliheksekusi   =   this.pilihan;
-  		let pathdari 	 	=   this.path;
-  		this.navCtrl.push(EksekusiPage, {
-  			file: 		path,
-  			nama_file:	nama_file,
-  			to:    pilihan,
-  			path:  pathdari,
-  			pilihan: piliheksekusi
-  		});
-  	} else if (pilih == 'internal') {
-  		let path  =   'storage/sdcard0/';
-  		let nama_file		= 	this.nama_file;
-  		let pilihan 		= 	pilih;
-  		let piliheksekusi   =   this.pilihan;
-  		let pathdari 	 	=   this.path;
-  		this.navCtrl.push(EksekusiPage, {
-  			file: path,
-  			nama_file:	nama_file,
-  			to:    pilihan,
-  			path:  pathdari,
-  			pilihan: piliheksekusi
-  		});  		
+  	// if (pilih == 'sdcard') {
+  	// 	let path 			= 	'storage/extSdCard/';
+  	// 	let nama_file		= 	this.nama_file;
+  	// 	let pilihan 		=   pilih;
+  	// 	let piliheksekusi   =   this.pilihan;
+  	// 	let pathdari 	 	=   this.path;
+  	// 	this.navCtrl.push(EksekusiPage, {
+  	// 		file: 		path,
+  	// 		nama_file:	nama_file,
+  	// 		to:    pilihan,
+  	// 		path:  pathdari,
+  	// 		pilihan: piliheksekusi
+  	// 	});
+  	// } else if (pilih == 'internal') {
+  	// 	let path  =   'storage/sdcard0/';
+  	// 	let nama_file		= 	this.nama_file;
+  	// 	let pilihan 		= 	pilih;
+  	// 	let piliheksekusi   =   this.pilihan;
+  	// 	let pathdari 	 	=   this.path;
+  	// 	this.navCtrl.push(EksekusiPage, {
+  	// 		file: path,
+  	// 		nama_file:	nama_file,
+  	// 		to:    pilihan,
+  	// 		path:  pathdari,
+  	// 		pilihan: piliheksekusi
+  	// 	});  		
+  	// }
+
+  	console.log(pilih);
+
+  }
+
+  EksekusiPerintah(path,nama,fullpath) {
+  	let stringPath 		 	= 	path;
+  	let substring 		    =   stringPath.substr(1);
+  	this.navCtrl.push(EksekusiPage, {
+  		file:      substring,
+  		nama_file: nama,
+  		pilihan:   this.pilihan,
+  		path:      this.path,
+  		to: 	   nama,
+  		nama_dari: this.nama_dari,
+  		path_next: this.path_next
+  	});
+  }
+
+  PathEksekusi() {
+  		
+  	if (this.pilihan == 'salin') {
+  		// this.filestorage.copyDir('file:///sdcard/','Samsung', 'file:///sdcard/','documents')
+  		// 	.then((copy) => {
+  		// 		console.log(copy);
+  		// 	})
+  		// 	.catch((pusing) => {
+  		// 		console.log(pusing);
+  		// 	})
   	}
   }
 
-  EksekusiPerintah() {
-  	let substring     =    this.path;
-  	let path 		  =    substring.substr(1);
-  	let darifolder 	  =    this.fullPath + path;
-  	if (this.pilihan == 'salin') {
-  		console.log(darifolder);
-  	}
+  Pilih_path(nama_path) {
+  	
   }
 }
