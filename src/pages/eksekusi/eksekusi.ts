@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams , AlertController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 
 /**
@@ -15,7 +15,7 @@ import { File } from '@ionic-native/file';
 })
 export class EksekusiPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams , private filestorage: File) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , private filestorage: File, private peringatan: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -125,20 +125,50 @@ export class EksekusiPage {
   	});
   }
 
+  pilih_path:string;
+
   PathEksekusi() {
-  		
-  	if (this.pilihan == 'salin') {
-  		// this.filestorage.copyDir('file:///sdcard/','Samsung', 'file:///sdcard/','documents')
-  		// 	.then((copy) => {
-  		// 		console.log(copy);
-  		// 	})
-  		// 	.catch((pusing) => {
-  		// 		console.log(pusing);
-  		// 	})
+  	if(this.pilih_path == undefined) {
+	  let peringatan    = 	 this.peringatan.create({
+	  	title: 'Pemberitahuan !',
+	  	subTitle: 'Pilih lokasi folder yang di ' + this.pilihan,
+	  	buttons: ['Dimengerti']
+	  });
+	  peringatan.present();
+  	} else {
+  		let fromcopy      =    this.fullPath + this.path_next;
+  		let destcopy 	  =    this.fullPath + this.file;
+		if (this.pilihan == 'salin') {
+	  		this.filestorage.copyDir(fromcopy,this.nama_dari, destcopy,this.pilih_path)
+	  			.then((copy) => {
+	  				let peringatan       =    this.peringatan.create({
+	  					title: 'Pemberitahuan !',
+	  					subTitle: 'folder ' + this.nama_dari + ' Disalin ke ' + this.pilih_path + ' suksess',
+	  					buttons: [
+	  						{
+	  							text: 'Selesai',
+	  							handler: () => {
+	  								this.navCtrl.popToRoot();
+	  							}
+	  						}
+	  					],
+	  					enableBackdropDismiss: false
+	  				});
+	  				peringatan.present();
+	  			})
+	  			.catch((pusing) => {
+	  				let peringatan       =   this.peringatan.create({
+	  					title: 'Pemberitahuan !',
+	  					subTitle: 'Penyalinan Gagal :{ Tidak Di izinkan disalin di folder' + this.pilih_path,
+	  					buttons: ['OK']
+	  				});
+	  				peringatan.present();
+	  			})
+	  	}  		
   	}
   }
 
   Pilih_path(nama_path) {
-  	
+  	this.pilih_path    =    nama_path;
   }
 }

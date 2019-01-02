@@ -209,7 +209,12 @@ export class HomePage {
   			}
   		})
   		.catch((pusing) => {
-  			console.log(pusing);
+  			let peringatan      =    this.alert.create({
+  				title: 'Pemberitahuan !',
+  				subTitle: nama + ' Tidak Bisa Dihapus',
+  				buttons: ['OK']
+  			});
+  			peringatan.present();
   		})  	
   }
   
